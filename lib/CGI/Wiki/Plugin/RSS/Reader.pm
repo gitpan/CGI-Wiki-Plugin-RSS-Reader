@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use vars qw( $VERSION @ISA );
 
-$VERSION = '1.2';
+$VERSION = '1.3';
 @ISA = qw(CGI::Wiki::Plugin);
 
 use Carp qw(croak);
@@ -16,12 +16,12 @@ my $rss = XML::RSS->new;
 
 sub new
 {
-    my $class  = shift;
-    my %params = @_;
-    my $self   = {};
-    bless $self, $class;
+  my $class  = shift;
+  my %params = @_;
+  my $self   = {};
+  bless $self, $class;
 
-    return $self->_init(%params);
+  return $self->_init(%params);
 }
 
 sub _init
@@ -77,15 +77,24 @@ sub retrieve
     croak "Couldn't retrieve RSS from [$location]: $!";
   }
 
-  $rss->parse($content);
-   
   my @rss_items;
+
+  $rss->parse($content);
 
   foreach (@{$rss->{'items'}})
   {
     my $link;
 
-    if ($_->{guid}) # RSS 2.0
+    # RSS 2.0 has GUIDs, which may or may not be the item's URL. Read
+    # http://diveintomark.org/archives/2004/02/04/incompatible-rss
+    # and weep. May I take the soapbox for a moment here and state
+    # publically that I think Dave Winer sucks? Thank you.
+
+    if ($_->{guid} && $_->{link})
+    { 
+      $link = $_->{link};
+    }
+    elsif ($_->{guid})
     {
       $link = $_->{guid};
     }
