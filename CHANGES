@@ -1,4 +1,7 @@
-xxxx-xx-xx: 1.1
+2004-05-07: 1.2
+            * Added support for RSS 2.0.
+
+2004-05-06: 1.1
             * Improved error reporting a bit.
 
 2004-05-04: 1

@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use vars qw( $VERSION @ISA );
 
-$VERSION = '1.1';
+$VERSION = '1.2';
 @ISA = qw(CGI::Wiki::Plugin);
 
 use Carp qw(croak);
@@ -83,9 +83,20 @@ sub retrieve
 
   foreach (@{$rss->{'items'}})
   {
+    my $link;
+
+    if ($_->{guid}) # RSS 2.0
+    {
+      $link = $_->{guid};
+    }
+    else
+    {
+      $link = $_->{link};
+    }
+
     push @rss_items, {
                        title => $_->{title},
-                       link  => $_->{link}
+                       link  => $link
                      };
   }
 
