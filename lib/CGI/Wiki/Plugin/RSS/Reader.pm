@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use vars qw( $VERSION @ISA );
 
-$VERSION = '1.3';
+$VERSION = '1.4';
 @ISA = qw(CGI::Wiki::Plugin);
 
 use Carp qw(croak);
@@ -104,8 +104,9 @@ sub retrieve
     }
 
     push @rss_items, {
-                       title => $_->{title},
-                       link  => $link
+                       title       => $_->{title},                             
+                       link        => $link,                                   
+                       description => $_->{description},
                      };
   }
 
@@ -155,7 +156,7 @@ RSS file); only one can be specified.
     my @items = $rss->retrieve;
 
 C<retrieve> will return an array of hashes, one for each item in the RSS
-feed. The hashes contain two items, C<title> and C<link>.
+feed. The hashes contain three items, C<title>, C<link>, and C<description>.   
 
 If the URL or file you specified cannot be retrieved/read, C<retrieve> will
 return undef rather than blowing up and surprising the person reading your

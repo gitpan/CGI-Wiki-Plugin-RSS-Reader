@@ -25,14 +25,17 @@ $RSS = qq{<?xml version="1.0" ?>
     <item>
       <title>Example item 1</title>
       <link>http://example.com/1.html</link>
+      <description>The first example.</description>                            
     </item>
     <item>
       <title>Example item 2</title>
       <link>http://example.com/2.html</link>
+      <description>The second example.</description>                           
     </item>
     <item>
       <title>Example item 3</title>
       <link>http://example.com/3.html</link>
+      <description>The third example.</description>                            
     </item>
   </channel>
 </rss>};
@@ -48,7 +51,7 @@ $INC{"LWP/Simple.pm"} = 1;
 
 package main;
 
-use Test::More tests => 7;
+use Test::More tests => 9;
 
 # Create a temporary file, fill it with the RSS we defined
 # earlier in the fake LWP::Simple.
@@ -76,17 +79,23 @@ is($items[0]{title}, 'Example item 1', 'Got local title');
 #4
 is($items[0]{link}, 'http://example.com/1.html', 'Got local link');
 
+#5                                                                             
+is($items[0]{description}, 'The first example.', 'Got local description');     
+ 
 $rss = CGI::Wiki::Plugin::RSS::Reader->new(
   url => 'http://example.com/example.rss',
 );
 
 @items = $rss->retrieve;
 
-#5
+#6
 is($items[0]{title}, 'Example item 1', 'Got remote title');
 
-#6
+#7
 is($items[0]{link}, 'http://example.com/1.html', 'Got remote link');
+
+#8                                                                             
+is($items[0]{description}, 'The first example.', 'Got remote description');
 
 my $died;
 
@@ -100,6 +109,6 @@ eval {
   );
 };
 
-#7
+#9
 is($died, 1, 'Caught illegal config options');
 
