@@ -4,7 +4,7 @@ use warnings;
 use strict;
 use vars qw( $VERSION @ISA );
 
-$VERSION = '1';
+$VERSION = '1.1';
 @ISA = qw(CGI::Wiki::Plugin);
 
 use Carp qw(croak);
@@ -60,11 +60,21 @@ sub retrieve
     }
   }
 
+  my $location;
+  if ($self->{_url})
+  {
+    $location = $self->{_url};
+  }
+  else
+  {
+    $location = $self->{_file};
+  }
+
   # If we couldn't get the RSS, fail silently or not?
   if (!defined $content)
   {
     return unless $self->{_debug};
-    croak "Couldn't read RSS: $!";
+    croak "Couldn't retrieve RSS from [$location]: $!";
   }
 
   $rss->parse($content);

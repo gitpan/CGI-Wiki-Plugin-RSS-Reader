@@ -1,4 +1,5 @@
 Build.PL
+CHANGES
 lib/CGI/Wiki/Plugin/RSS/Reader.pm
 MANIFEST
 Makefile.PL

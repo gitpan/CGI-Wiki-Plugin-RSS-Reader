@@ -14,7 +14,10 @@ INSTALLATION
   ./Build install
 
 A passthrough Makefile.PL is included for convenience; it will prompt you to
-install Module::Build if you don't already have it.
+install Module::Build if you don't already have it. To install into a
+private directory, call Build.PL like this:
+
+  perl Build.PL install_path=lib=/path/to/my/modules/
 
 USAGE
 

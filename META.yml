@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: CGI-Wiki-Plugin-RSS-Reader
-version: 1
+version: 1.1
 license: perl
 distribution_type: module
 requires:
@@ -12,5 +12,5 @@ conflicts: {}
 provides:
   CGI::Wiki::Plugin::RSS::Reader:
     file: lib/CGI/Wiki/Plugin/RSS/Reader.pm
-    version: 1
-generated_by: Module::Build version 0.20
+    version: 1.1
+generated_by: Module::Build version 0.21
