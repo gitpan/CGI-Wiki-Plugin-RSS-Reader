@@ -1,0 +1,7 @@
+Build.PL
+lib/CGI/Wiki/Plugin/RSS/Reader.pm
+MANIFEST
+Makefile.PL
+META.yml
+README
+t/rss.t
